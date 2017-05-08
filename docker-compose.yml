@@ -14,6 +14,7 @@ services:
             - main_assets:/mastodon/public/assets
             - main_packs:/mastodon/public/packs
             - main_system:/mastodon/public/system
+            - main_private:/mastodon/private
         env_file: env
         environment:
             - VIRTUAL_HOST
@@ -34,6 +35,8 @@ services:
         depends_on:
             - db
             - redis
+        volumes:
+            - main_private:/mastodon/private
         env_file: env
         environment:
             - VIRTUAL_HOST=streaming.${VIRTUAL_HOST}
@@ -53,6 +56,7 @@ services:
             - redis
         volumes:
             - main_system:/mastodon/public/system
+            - main_private:/mastodon/private
         env_file: env
         environment:
             - LOCAL_DOMAIN=${VIRTUAL_HOST}
@@ -76,6 +80,7 @@ volumes:
     main_assets:
     main_packs:
     main_system:
+    main_private:
     db_data:
     redis_data:
 
