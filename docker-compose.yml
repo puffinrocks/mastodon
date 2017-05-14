@@ -62,7 +62,6 @@ services:
             - LOCAL_DOMAIN=${VIRTUAL_HOST}
             - SMTP_FROM_ADDRESS=mastodon@${VIRTUAL_HOST}
         networks:
-            - front
             - back
             - default
   

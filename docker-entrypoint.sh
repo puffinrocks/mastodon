@@ -1,17 +1,6 @@
 #!/bin/sh
 set -e
 
-if [ ! -e /mastodon/private/secret ]; then
-    touch /mastodon/private/secret
-    rake secret > /mastodon/private/secret
-fi
-
-SECRET=`cat /mastodon/private/secret`
-
-export PAPERCLIP_SECRET=$SECRET
-export SECRET_KEY_BASE=$SECRET
-export OTP_SECRET=$SECRET
-
 case "$*" in
     *rails*server*)
         if [ ! -e /mastodon/private/migrated-1 ]; then
@@ -24,11 +13,26 @@ case "$*" in
             rake db:migrate
             export VERSION=$VERSION_BAK
             
+            rake secret > /mastodon/private/secret
+            
             rake assets:precompile
 
+            rails runner /mastodon/create_admin.rb
         fi
         ;;
 esac
-            rails runner /mastodon/create_admin.rb
+
+for i in `seq 1 120`; do
+    if [ -e /mastodon/private/secret ]; then
+        break
+    fi
+    sleep 1
+done
+
+SECRET=`cat /mastodon/private/secret`
+
+export PAPERCLIP_SECRET=$SECRET
+export SECRET_KEY_BASE=$SECRET
+export OTP_SECRET=$SECRET
 
 exec "$@"
