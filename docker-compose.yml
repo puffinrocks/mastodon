@@ -19,6 +19,9 @@ services:
         environment:
             - VIRTUAL_HOST
             - VIRTUAL_PORT=3000
+            - LETSENCRYPT_HOST
+            - LETSENCRYPT_EMAIL
+            - LETSENCRYPT_TEST
             - LOCAL_DOMAIN=${VIRTUAL_HOST}
             - SMTP_FROM_ADDRESS=mastodon@${VIRTUAL_HOST}
             - STREAMING_API_BASE_URL=ws://streaming.${VIRTUAL_HOST}:4000
