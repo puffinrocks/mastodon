@@ -28,12 +28,12 @@ case "$*" in
             echo "initializing/updating Mastodon"
             sleep 5
 
+            rake secret > /mastodon/private/secret
+
             VERSION_BAK=$VERSION
             unset VERSION
             rake db:migrate
             export VERSION=$VERSION_BAK
-            
-            rake secret > /mastodon/private/secret
             
             rake assets:precompile
 
