@@ -1,5 +1,5 @@
 version: '3'
-    
+
 services:
 
     main:
@@ -67,7 +67,7 @@ services:
         networks:
             - back
             - default
-  
+
     db:
         image: postgres:alpine
         volumes:
@@ -88,7 +88,7 @@ volumes:
 
 networks:
     front:
-        external: 
+        external:
             name: "puffin_front"
     back:
         external:

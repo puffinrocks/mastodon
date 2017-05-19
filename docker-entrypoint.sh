@@ -34,11 +34,11 @@ case "$*" in
             unset VERSION
             rake db:migrate
             export VERSION=$VERSION_BAK
-            
+
             rake assets:precompile
 
             rails runner /mastodon/create_admin.rb
-            
+
             touch /mastodon/private/migrated-1
         fi
         ;;
