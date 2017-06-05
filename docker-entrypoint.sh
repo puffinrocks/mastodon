@@ -22,6 +22,12 @@ export PAPERCLIP_SECRET=$SECRET
 export SECRET_KEY_BASE=$SECRET
 export OTP_SECRET=$SECRET
 
+if [ "$LETSENCRYPT_HOST" == "" ]; then
+    export LOCAL_HTTPS=false
+else
+    export LOCAL_HTTPS=true
+fi
+
 case "$*" in
     *rails*server*)
         if [ ! -e /mastodon/private/migrated-1 ]; then
