@@ -24,7 +24,7 @@ services:
             - LETSENCRYPT_TEST
             - LOCAL_DOMAIN=${VIRTUAL_HOST}
             - SMTP_FROM_ADDRESS=mastodon@${VIRTUAL_HOST}
-            - STREAMING_API_BASE_URL=ws://streaming.${VIRTUAL_HOST}:4000
+            - STREAMING_API_BASE_URL=wss://streaming.${VIRTUAL_HOST}
         networks:
             - front
             - back
@@ -44,7 +44,11 @@ services:
         environment:
             - VIRTUAL_HOST=streaming.${VIRTUAL_HOST}
             - VIRTUAL_PORT=4000
-            - LOCAL_DOMAIN=streaming.${VIRTUAL_HOST}
+            - LETSENCRYPT_HOST=streaming.${VIRTUAL_HOST}
+            - LETSENCRYPT_EMAIL
+            - LETSENCRYPT_TEST
+            - LOCAL_HTTPS=true
+            - LOCAL_DOMAIN=${VIRTUAL_HOST}
             - SMTP_FROM_ADDRESS=mastodon@${VIRTUAL_HOST}
         networks:
             - front
@@ -62,6 +66,7 @@ services:
             - main_private:/mastodon/private
         env_file: env
         environment:
+            - LOCAL_HTTPS=true
             - LOCAL_DOMAIN=${VIRTUAL_HOST}
             - SMTP_FROM_ADDRESS=mastodon@${VIRTUAL_HOST}
         networks:
