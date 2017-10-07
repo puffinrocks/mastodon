@@ -31,7 +31,7 @@ fi
 
 case "$*" in
     *rails*server*)
-        if [ ! -e /mastodon/private/migrated-2 ]; then
+        if [ ! -e /mastodon/private/migrated-1 ]; then
             echo "initializing/updating Mastodon"
             sleep 5
 
@@ -42,11 +42,9 @@ case "$*" in
 
             rake assets:precompile
 
-            rails mastodon:maintenance:remove_deprecated_preview_cards
-
             rails runner /mastodon/create_admin.rb
 
-            touch /mastodon/private/migrated-2
+            touch /mastodon/private/migrated-1
         fi
         ;;
 esac
