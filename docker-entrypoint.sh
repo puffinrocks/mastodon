@@ -4,7 +4,8 @@ set -e
 case "$*" in
     *rails*server*)
         if [ ! -e /mastodon/private/secret ]; then
-            rake secret > /mastodon/private/secret
+            SECRET=`rake secret`
+            echo $SECRET > /mastodon/private/secret
         fi
         ;;
 esac
