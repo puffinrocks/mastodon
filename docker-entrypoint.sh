@@ -31,11 +31,9 @@ fi
 
 case "$*" in
     *rails*server*)
-        if [ ! -e /mastodon/private/migrated-1 ]; then
+        if [ ! -e /mastodon/private/migrated-2 ]; then
             echo "initializing/updating Mastodon"
             sleep 5
-
-            rake secret > /mastodon/private/secret
 
             VERSION_BAK=$VERSION
             unset VERSION
@@ -44,9 +42,11 @@ case "$*" in
 
             rake assets:precompile
 
+            rails mastodon:maintenance:remove_deprecated_preview_cards
+
             rails runner /mastodon/create_admin.rb
 
-            touch /mastodon/private/migrated-1
+            touch /mastodon/private/migrated-2
         fi
         ;;
 esac
