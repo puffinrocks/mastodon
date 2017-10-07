@@ -1,6 +1,6 @@
-FROM gargron/mastodon:v1.5.0
+FROM gargron/mastodon:v1.6.1
 
-ENV VERSION 1.5.0
+ENV VERSION 1.6.1
 
 COPY create_admin.rb /mastodon/create_admin.rb
 
