@@ -42,9 +42,9 @@ services:
             - main_private:/mastodon/private
         env_file: env
         environment:
-            - VIRTUAL_HOST=streaming.${VIRTUAL_HOST}
+            - VIRTUAL_HOST=${VIRTUAL_HOST_STREAMING}
             - VIRTUAL_PORT=4000
-            - LETSENCRYPT_HOST=streaming.${VIRTUAL_HOST}
+            - LETSENCRYPT_HOST=${LETSENCRYPT_HOST_STREAMING}
             - LETSENCRYPT_EMAIL
             - LETSENCRYPT_TEST
             - LOCAL_HTTPS=true
